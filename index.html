@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Unearthed Wisconsin</title>
 
-  <!-- React & ReactDOM -->
+  <!-- React (CDN) -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
@@ -13,8 +13,8 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    :root{
-      --bg:#0b1e0e; /* dark green/black */
+    :root {
+      --bg:#000;
       --card:rgba(255,255,255,.08);
       --card2:rgba(255,255,255,.06);
       --text:rgba(255,255,255,.92);
@@ -24,278 +24,168 @@
       --accent2:#61bbff;
       --warn:#ffd36b;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--text);}
-    .page{min-height:100%;display:flex;flex-direction:column}
-    .topbar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);backdrop-filter:blur(10px);background:rgba(0,0,0,0.65);z-index:10}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brandDot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(140,255,199,.12)}
-    .brandText{font-weight:800;letter-spacing:.2px}
-    .navRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .navLink{color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:8px 10px;border-radius:10px;display:inline-flex;gap:8px;align-items:center}
-    .navLink:hover{color:var(--text);border-color:rgba(255,255,255,.28)}
-    .content{width:min(980px, calc(100% - 32px));margin:18px auto 24px;flex:1;display:grid;gap:16px}
-    .card{border:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--card2));border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
-    .coverWrap{position:relative;width:min(420px,100%);margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 14px 40px rgba(0,0,0,.35);}
-    .coverImg{width:100%;display:block}
-    .hotspot{position:absolute;background:transparent;border:2px solid transparent;border-radius:14px;cursor:pointer;}
-    .hotspot:hover{border-color: rgba(140, 255, 199, 0.9);box-shadow:0 0 0 6px rgba(140,255,199,.14);}
-    .stamp{position:absolute;pointer-events:none;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);color:rgba(255,255,255,.90);font-size:12px;backdrop-filter:blur(6px);}
-    .stampDot{width:8px;height:8px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(140,255,199,.14);}
-    .hint{border:1px solid var(--line);border-radius:18px;padding:14px 16px;background:rgba(255,255,255,.04);}
-    .hintTitle{font-weight:700;margin-bottom:6px}
-    .hintBody{color:var(--muted);line-height:1.45}
-    .title{margin:0 0 6px;font-size:28px;letter-spacing:.2px}
-    .subtitle{margin:0 0 14px;color:var(--muted);line-height:1.5}
-    .panel{border:1px solid var(--line);background: rgba(0,0,0,.22);border-radius:16px;padding:14px;}
-    .panel h2{margin:0 0 10px;font-size:16px;color:rgba(255,255,255,.88)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;cursor:pointer;}
-    .btn:hover{border-color: rgba(140,255,199,.5); box-shadow:0 0 0 5px rgba(140,255,199,.12)}
-    .btn:disabled{opacity:.5; cursor:not-allowed;}
+    *{box-sizing:border-box;}
+    html,body{height:100%; margin:0; font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background: var(--bg); color:var(--text);}
+    .page{min-height:100%; display:flex; flex-direction:column;}
+    .topbar{position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--line); backdrop-filter: blur(10px); background: rgba(0,0,0,0.65);}
+    .brand{display:flex; align-items:center; gap:10px;}
+    .brandDot{width:10px; height:10px; border-radius:999px; background:var(--accent);}
+    .brandText{font-weight:800; letter-spacing:.2px;}
+    .navRow{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .navLink{color:var(--muted); text-decoration:none; border:1px solid var(--line); padding:8px 10px; border-radius:10px; display:inline-flex; gap:8px; align-items:center;}
+    .navLink:hover{color:var(--text); border-color:rgba(255,255,255,.28);}
+    .content{width:min(980px, calc(100% - 32px)); margin:18px auto 24px; flex:1; display:grid; gap:16px;}
+    .card{border:1px solid var(--line); background: linear-gradient(180deg, var(--card), var(--card2)); border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,.25);}
+    .coverWrap{position:relative; width:min(420px,100%); margin:0 auto; border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 14px 40px rgba(0,0,0,.35);}
+    .coverImg{width:100%; height:auto; display:block;}
+    .hotspot{position:absolute; background:transparent; border:2px solid transparent; border-radius:14px; cursor:pointer;}
+    .hotspot:hover{border-color: rgba(140, 255, 199, 0.9); box-shadow: 0 0 0 6px rgba(140, 255, 199, 0.14);}
+    .stamp{position:absolute; pointer-events:none; display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(0,0,0,.55); color: rgba(255,255,255,.90); font-size:12px; backdrop-filter: blur(6px);}
+    .stampDot{width:8px; height:8px; border-radius:999px; background: var(--accent);}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid rgba(255,255,255,.16); border-radius:999px; background: rgba(255,255,255,.05); color:var(--muted); font-size:13px;}
+    .btn{display:inline-flex; align-items:center; justify-content:center; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); color:var(--text); text-decoration:none; cursor:pointer;}
+    .btn:hover{border-color: rgba(140,255,199,.5); box-shadow:0 0 0 5px rgba(140,255,199,.12);}
     .btn2{border-color: rgba(97,187,255,.35);}
     .btn2:hover{border-color: rgba(97,187,255,.75); box-shadow:0 0 0 5px rgba(97,187,255,.14);}
-    .footer{color:rgba(255,255,255,.55);text-align:center;padding:18px 10px 24px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background: rgba(255,255,255,.05);color:var(--muted);font-size:13px;}
-    .checklist{display:grid;gap:10px}
-    .taskRow{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background: rgba(255,255,255,.03);}
-    .taskRow input{margin-top:3px; transform: scale(1.1);}
-    .taskText{color: rgba(255,255,255,.80); line-height:1.45}
-    .taskDone .taskText{color: rgba(255,255,255,.62); text-decoration: line-through;}
-    .groupTitle{margin-top:8px;font-weight:800;color: rgba(255,255,255,.88);letter-spacing:.2px;}
-    .smallMuted{color: var(--muted); font-size:13px; line-height:1.45}
-    .kitGrid{display:grid;grid-template-columns:1fr;gap:10px;}
-    @media (min-width:720px){.kitGrid{grid-template-columns:1fr 1fr;}}
-    .kitItem{border:1px solid rgba(255,255,255,.14);border-radius:16px;background: rgba(255,255,255,.03);padding:12px;display:flex;gap:12px;align-items:flex-start;}
-    .kitIcon{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background: rgba(140,255,199,.10);border:1px solid rgba(140,255,199,.18);font-size:18px;flex:0 0 auto;}
-    .kitName{font-weight:900; letter-spacing:.2px}
-    .kitDesc{color: rgba(255,255,255,.72); font-size:13px; line-height:1.45; margin-top:4px;}
-    .tagRow{margin-top:8px; display:flex; gap:8px; flex-wrap:wrap}
-    .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background: rgba(0,0,0,.18);color: rgba(255,255,255,.78);font-size:12px;}
-    .warnTag{border-color: rgba(255,211,107,.35);color: rgba(255,211,107,.95);background: rgba(255,211,107,.08);}
-    .bigTitle{font-size:26px;font-weight:900;margin:0 0 12px;letter-spacing:.2px;}
-    .etList{margin:0;padding-left:18px;line-height:1.75;color: rgba(255,255,255,.82);}
-    .etImage{width:100%;height:auto;display:block;border-radius:14px;border:1px solid rgba(255,255,255,.14);margin-top:14px;}
+    .footer{color:rgba(255,255,255,.55); text-align:center; padding:18px 10px 24px;}
   </style>
 </head>
+
 <body>
-  <div id="root"></div>
+<div id="root"></div>
 
-  <script type="text/babel">
-    // ------------------------
-    // Data
-    // ------------------------
-    const LOCATIONS = [
-      {id:"high-cliff", title:"High Cliff", short:"Dramatic views above Lake Winnebago.", hotspot:{left:64,top:6,width:32,height:14},
-        mapUrl:"https://www.google.com/maps/dir/?api=1&destination=High%20Cliff%20State%20Park%2C%20Sherwood%2C%20WI&travelmode=driving",
-        facts:["Location: Neenah, WI","Time Period: ~A.D. 700–1200","Effigy mounds include bear, panther, bird shapes."],
-        gallery:["./Highcliff1.png","./Highcliff2.png"],
-        adventureTasks:[
-          {id:"hc-spot",group:"Adventure Lab",text:"Spot any mounds."},
-          {id:"hc-notes",group:"Field Notebook",text:"Sketch favorite area in your notebook."},
-        ],
-        toolkitItems:[
-          {id:"hc-fact",name:"FACT FINDER",icon:"🔍",description:"Earn after reading facts.",earnRule:"Available on page",type:"fact"},
-          {id:"hc-share",name:"MOUND MESSENGER",icon:"🔦",description:"Share with #UnearthedWisconsin",earnRule:"Use Share button",type:"share"},
-          {id:"hc-visit",name:"EARTH EXPLORER",icon:"🧭",description:"Open driving directions",earnRule:"Use Directions button",type:"visit"}
-        ]
-      },
-      {id:"lizard-mound", title:"Lizard Mound", short:"Well-preserved Native American effigy mounds.", hotspot:{left:70,top:41,width:24,height:18},
-        mapUrl:"https://www.google.com/maps/dir/?api=1&destination=2121%20Co%20Hwy%20A%2C%20West%20Bend%2C%20WI%2053090&travelmode=driving",
-        facts:["Location: Farmington, WI","Over 20 animal-shaped mounds.","Align with sun at times of year."],
-        gallery:["./LizardMoundMap.png","./LizardMound.png"],
-        adventureTasks:[
-          {id:"lm-lizard",group:"Animal Mounds",text:"Find a lizard-shaped mound."},
-          {id:"lm-bird",group:"Animal Mounds",text:"Spot a bird-shaped mound."}
-        ],
-        toolkitItems:[
-          {id:"lm-fact",name:"FACT FINDER",icon:"📋",description:"Read the facts",earnRule:"Available on page",type:"fact"},
-          {id:"lm-share",name:"MOUND MESSENGER",icon:"⛏️",description:"Share with #UnearthedWisconsin",earnRule:"Use Share button",type:"share"},
-          {id:"lm-visit",name:"EARTH EXPLORER",icon:"🎒",description:"Open driving directions",earnRule:"Use Directions button",type:"visit"}
-        ]
-      }
-    ];
+<script type="text/babel">
 
-    function getLoc(id){ return LOCATIONS.find(l=>l.id===id); }
+// -----------------------------
+// Data
+// -----------------------------
+const LOCATIONS = [
+  {id:"high-cliff", title:"High Cliff", short:"Dramatic views above Lake Winnebago", hotspot:{left:64, top:6, width:32, height:14}},
+  {id:"lizard-mound", title:"Lizard Mound", short:"Well-preserved effigy mound site", hotspot:{left:70, top:41, width:24, height:18}},
+];
 
-    // ------------------------
-    // Storage
-    // ------------------------
-    const STORAGE_KEY="uw_progress";
-    function loadProgress(){
-      try{ const raw=localStorage.getItem(STORAGE_KEY); return raw?JSON.parse(raw):{visited:{},tasks:{},toolkit:{},flags:{shared:{},directions:{}}}; }catch(e){return {visited:{},tasks:{},toolkit:{},flags:{shared:{},directions:{}}};}
-    }
-    function saveProgress(p){localStorage.setItem(STORAGE_KEY,JSON.stringify(p));}
-    function useProgress(){
-      const [progress,setProgress]=React.useState(loadProgress());
-      const update=(fn)=>setProgress(prev=>{const next=JSON.parse(JSON.stringify(prev));fn(next);saveProgress(next);return next;});
-      return [progress,update];
-    }
+// -----------------------------
+// Storage helpers
+// -----------------------------
+const STORAGE_KEY = "uw_progress_fixed";
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return { visited:{} };
+    return JSON.parse(raw);
+  }catch(e){ return { visited:{} }; }
+}
+function saveProgress(progress){ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); }
 
-    // ------------------------
-    // Simple routing
-    // ------------------------
-    function useHashRoute(){
-      const [hash,setHash]=React.useState(window.location.hash||"#/");
-      React.useEffect(()=>{const h=()=>setHash(window.location.hash||"#/");window.addEventListener("hashchange",h);return()=>window.removeEventListener("hashchange",h);},[]);
-      return [hash,(next)=>window.location.hash=next];
-    }
+// -----------------------------
+// Routing
+// -----------------------------
+function useHashRoute(){
+  const [hash, setHash] = React.useState(window.location.hash || "#/");
+  React.useEffect(() => {
+    const onChange = () => setHash(window.location.hash || "#/");
+    window.addEventListener("hashchange", onChange);
+    return () => window.removeEventListener("hashchange", onChange);
+  }, []);
+  return [hash, (next)=>window.location.hash=next];
+}
 
-    // ------------------------
-    // Helper functions
-    // ------------------------
-    function openMaps(url){if(!url)return;const win=window.open(url,"_blank");if(!win)window.location.href=url;}
-    async function tryShare(text){try{if(navigator.share){await navigator.share({text});return true;}}catch(e){}try{await navigator.clipboard.writeText(text);alert("Copied! Paste this:\n"+text);return true;}catch(e){alert("Post with:\n"+text);return false;}}
-
-    // ------------------------
-    // Pages
-    // ------------------------
-    function Cover({progress}){
-      const [,nav]=useHashRoute();
-      return <div className="page">
-        <header className="topbar">
-          <div className="brand"><span className="brandDot"/><span className="brandText">Unearthed Wisconsin</span></div>
-          <div className="navRow">
-            <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
-            <a className="navLink" href="#/etiquette">📜 Etiquette</a>
-            <span className="pill">Game Map • Tap an icon</span>
-          </div>
-        </header>
-        <main className="content">
-          <div className="coverWrap">
-            <img className="coverImg" src="./cover.png" alt="Map cover"/>
-            {LOCATIONS.map(loc=><>
-              <button key={loc.id} className="hotspot" style={{left:`${loc.hotspot.left}%`,top:`${loc.hotspot.top}%`,width:`${loc.hotspot.width}%`,height:`${loc.hotspot.height}%`}} onClick={()=>nav(`#/location/${loc.id}`)} title={loc.title}/>
-              {progress.visited?.[loc.id]&&<div className="stamp" style={{left:`calc(${loc.hotspot.left}%+2px)`,top:`calc(${loc.hotspot.top}% - 10px)`}}><span className="stampDot"></span>Visited</div>}
-            </>)}
-          </div>
-          <div className="hint">
-            <div className="hintTitle">How to play</div>
-            <div className="hintBody">Each site has <strong>3 badges</strong>: Fact Finder, Mound Messenger, Earth Explorer.</div>
-          </div>
-        </main>
-        <footer className="footer">Unearthed Wisconsin • Game Build</footer>
-      </div>;
-    }
-
-    function EtiquettePage(){return <div className="page">
+// -----------------------------
+// Pages
+// -----------------------------
+function Cover({progress, update}){
+  const [, nav] = useHashRoute();
+  return (
+    <div className="page">
       <header className="topbar">
-        <div className="brand"><span className="brandDot"/><span className="brandText">Unearthed Wisconsin</span></div>
-        <div className="navRow"><a className="navLink" href="#/">← Map</a><a className="navLink" href="#/toolkit">🧰 Toolkit</a></div>
+        <div className="brand"><span className="brandDot" /><span className="brandText">Unearthed Wisconsin</span></div>
+        <div className="navRow"><a className="navLink" href="#/toolkit">🧰 Toolkit</a></div>
+      </header>
+      <main className="content">
+        <div className="coverWrap">
+          <img className="coverImg" src="./cover.png" alt="Map" />
+          {LOCATIONS.map(loc=>(
+            <React.Fragment key={loc.id}>
+              <button className="hotspot"
+                style={{left:`${loc.hotspot.left}%`, top:`${loc.hotspot.top}%`, width:`${loc.hotspot.width}%`, height:`${loc.hotspot.height}%`}}
+                onClick={()=>nav(`#/location/${loc.id}`)}
+                title={loc.title}
+              />
+              {progress.visited?.[loc.id] ? (
+                <div className="stamp" style={{left:`calc(${loc.hotspot.left}% + 2px)`, top:`calc(${loc.hotspot.top}% - 10px)`}}>
+                  <span className="stampDot"></span>Visited
+                </div>
+              ): null}
+            </React.Fragment>
+          ))}
+        </div>
+        <div className="pill">Tap an icon to visit a location</div>
+      </main>
+      <footer className="footer">Unearthed Wisconsin</footer>
+    </div>
+  );
+}
+
+function LocationPage({id, progress, update}){
+  const loc = LOCATIONS.find(l=>l.id===id);
+  const [, nav] = useHashRoute();
+  React.useEffect(()=>{
+    if(!loc) return;
+    update(p=>{ p.visited[loc.id]=true; return p; });
+  }, [id]);
+  if(!loc) return <div>Location not found</div>;
+  return (
+    <div className="page">
+      <header className="topbar">
+        <div className="brand"><span className="brandDot" /><span className="brandText">Unearthed Wisconsin</span></div>
+        <div className="navRow"><a className="navLink" href="#/">← Map</a></div>
       </header>
       <main className="content">
         <div className="card">
-          <h1 className="bigTitle">Respectful Visiting Etiquette</h1>
-          <ol className="etList">
-            <li>Stay on trails</li><li>Do not climb mounds</li><li>Leave everything as found</li>
-            <li>No digging</li><li>Keep site clean</li><li>Be quiet</li><li>Teach others respect</li>
-            <li>Leash pets</li><li>Take only photos</li><li>Follow park rules</li>
-          </ol>
-          <img className="etImage" src="./hike.png" alt="Respectful hiking illustration"/>
+          <h1>{loc.title}</h1>
+          <p>{loc.short}</p>
         </div>
       </main>
-      <footer className="footer">Unearthed Wisconsin</footer>
-    </div>;}
+    </div>
+  );
+}
 
+function ToolkitPage({progress}){
+  const [, nav] = useHashRoute();
+  return (
+    <div className="page">
+      <header className="topbar">
+        <div className="brand"><span className="brandDot" /><span className="brandText">Unearthed Wisconsin</span></div>
+        <div className="navRow"><a className="navLink" href="#/">← Map</a></div>
+      </header>
+      <main className="content">
+        <div className="card">
+          <h1>🧰 Toolkit</h1>
+          <p>Visited sites: {Object.keys(progress.visited).length}</p>
+        </div>
+      </main>
+    </div>
+  );
+}
 
-    function ToolkitPage({progress,update}){
-      const earnedItems=[];
-      LOCATIONS.forEach(loc=>{(loc.toolkitItems||[]).forEach(item=>{if(progress.toolkit?.[item.id])earnedItems.push({...item,earnedAt:progress.toolkit[item.id].earnedAt,earnedFrom:progress.toolkit[item.id].earnedFrom});})});
-      const resetAll=()=>{if(!confirm("Reset all progress?"))return;const empty={visited:{},tasks:{},toolkit:{},flags:{shared:{},directions:{}}};saveProgress(empty);update(()=>empty);};
-      return <div className="page">
-        <header className="topbar"><div className="brand"><span className="brandDot"/><span className="brandText">Unearthed Wisconsin</span></div>
-        <div className="navRow"><a className="navLink" href="#/">← Map</a><a className="navLink" href="#/etiquette">📜 Etiquette</a></div></header>
-        <main className="content">
-          <h1 className="bigTitle">Toolkit</h1>
-          {earnedItems.length===0?<p>No badges earned yet. Visit a site!</p>:<div className="kitGrid">
-            {earnedItems.map(item=><div key={item.id} className="kitItem">
-              <div className="kitIcon">{item.icon}</div>
-              <div>
-                <div className="kitName">{item.name}</div>
-                <div className="kitDesc">{item.description}</div>
-                <div className="smallMuted">From {item.earnedFrom} at {new Date(item.earnedAt).toLocaleDateString()}</div>
-              </div>
-            </div>)}
-          </div>}
-          <div style={{marginTop:18}}>
-            <button className="btn btn2" onClick={resetAll}>Reset All Progress</button>
-          </div>
-        </main>
-        <footer className="footer">Unearthed Wisconsin</footer>
-      </div>;
-    }
+// -----------------------------
+// App
+// -----------------------------
+function App(){
+  const [progress, setProgress] = React.useState(loadProgress());
+  const update = (fn)=>setProgress(prev=>{ const next = fn({...prev}); saveProgress(next); return next; });
 
-    function LocationPage({id,progress,update}){
-      const loc=getLoc(id);
-      const [,nav]=useHashRoute();
-      if(!loc) return <div>Location not found</div>;
+  const [hash] = useHashRoute();
+  if(hash.startsWith("#/location/")){
+    const id = hash.replace("#/location/","");
+    return <LocationPage id={id} progress={progress} update={update} />;
+  }
+  if(hash==="#/toolkit") return <ToolkitPage progress={progress} />;
+  return <Cover progress={progress} update={update} />;
+}
 
-      const markVisited=()=>update(p=>{p.visited[id]=true;saveProgress(p);});
-      const handleShare=async()=>{const ok=await tryShare(`Check out ${loc.title} in Unearthed Wisconsin!`);if(ok)update(p=>{p.toolkit[loc.toolkitItems.find(i=>i.type==="share").id]={earnedAt:Date.now(),earnedFrom:loc.title};p.flags.shared[id]=true;});};
-      const handleDirections=()=>{openMaps(loc.mapUrl);update(p=>{p.toolkit[loc.toolkitItems.find(i=>i.type==="visit").id]={earnedAt:Date.now(),earnedFrom:loc.title};p.flags.directions[id]=true;});};
-      const handleFact=()=>update(p=>{p.toolkit[loc.toolkitItems.find(i=>i.type==="fact").id]={earnedAt:Date.now(),earnedFrom:loc.title};});
+ReactDOM.render(<App />, document.getElementById("root"));
 
-      return <div className="page">
-        <header className="topbar">
-          <div className="brand"><span className="brandDot"/><span className="brandText">Unearthed Wisconsin</span></div>
-          <div className="navRow">
-            <a className="navLink" href="#/">← Map</a>
-            <a className="navLink" href="#/toolkit">🧰 Toolkit</a>
-            <a className="navLink" href="#/etiquette">📜 Etiquette</a>
-          </div>
-        </header>
-        <main className="content">
-          <div className="card">
-            <h1 className="title">{loc.title}</h1>
-            <div className="subtitle">{loc.short}</div>
-            <div className="panel">
-              <h2>Facts</h2>
-              <ul>
-                {loc.facts.map(f=><li key={f}>{f}</li>)}
-              </ul>
-              <button className="btn" onClick={handleFact} disabled={progress.toolkit[loc.toolkitItems.find(i=>i.type==="fact").id]}>Earn Fact Badge</button>
-            </div>
-
-            <div className="panel">
-              <h2>Adventure Tasks</h2>
-              <div className="checklist">
-                {loc.adventureTasks.map(task=>{
-                  const done=progress.tasks[task.id];
-                  return <div key={task.id} className={`taskRow ${done?"taskDone":""}`}>
-                    <input type="checkbox" checked={done||false} onChange={e=>update(p=>{p.tasks[task.id]=e.target.checked;saveProgress(p);})}/>
-                    <div className="taskText">{task.text}</div>
-                  </div>
-                })}
-              </div>
-            </div>
-
-            <div className="panel">
-              <h2>Earn More Badges</h2>
-              <div className="navRow" style={{flexWrap:"wrap",gap:10}}>
-                <button className="btn" onClick={handleShare} disabled={progress.flags.shared[id]}>Share Mound</button>
-                <button className="btn" onClick={handleDirections} disabled={progress.flags.directions[id]}>Driving Directions</button>
-              </div>
-            </div>
-          </div>
-        </main>
-        <footer className="footer">Unearthed Wisconsin</footer>
-      </div>;
-    }
-
-    // ------------------------
-    // Main App
-    // ------------------------
-    function App(){
-      const [hash]=useHashRoute();
-      const [progress,update]=useProgress();
-      if(hash.startsWith("#/location/")){
-        const locId=hash.replace("#/location/","");
-        return <LocationPage id={locId} progress={progress} update={update}/>;
-      }else if(hash==="#/toolkit"){return <ToolkitPage progress={progress} update={update}/>;}
-      else if(hash==="#/etiquette"){return <EtiquettePage/>;}
-      else{return <Cover progress={progress}/>;}
-    }
-
-    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-  </script>
+</script>
 </body>
 </html>
